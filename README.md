@@ -1,70 +1,86 @@
-# Getting Started with Create React App
+# Restaurant Reservation System - Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Modern ve kullanıcı dostu bir restoran rezervasyon sistemi frontend uygulaması.
 
-## Available Scripts
+## 🚀 Özellikler
 
-In the project directory, you can run:
+- Modern ve şık kullanıcı arayüzü
+- Responsive tasarım (mobil uyumlu)
+- JWT tabanlı kullanıcı kimlik doğrulama
+- Rezervasyon oluşturma ve yönetme
+- Menü görüntüleme ve filtreleme
+- Galeri ve resim yönetimi
+- Admin paneli
 
-### `npm start`
+## 🛠️ Kullanılan Teknolojiler
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- React.js
+- React Router DOM
+- Bootstrap
+- Font Awesome
+- JWT Authentication
+- CSS Modules
+- Responsive Design
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 📦 Kurulum
 
-### `npm test`
+1. Repoyu klonlayın:
+```bash
+git clone https://github.com/oguzhanbilgi/restaurant-reservation-frontend.git
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Proje dizinine gidin:
+```bash
+cd restaurant-reservation-frontend
+```
 
-### `npm run build`
+3. Bağımlılıkları yükleyin:
+```bash
+npm install
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. Uygulamayı başlatın:
+```bash
+npm start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🌐 Sayfalar
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Ana Sayfa**: Restoran tanıtımı ve öne çıkan özellikler
+- **Menü**: Kategorilere ayrılmış yemek menüsü
+- **Galeri**: Restoran ve yemek fotoğrafları
+- **Rezervasyon**: Online rezervasyon formu
+- **İletişim**: İletişim bilgileri ve harita
+- **Giriş/Kayıt**: Kullanıcı hesap yönetimi
+- **Admin Panel**: Rezervasyon ve kullanıcı yönetimi
 
-### `npm run eject`
+## 🔒 Güvenlik
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- JWT tabanlı kimlik doğrulama
+- Rol tabanlı yetkilendirme
+- Güvenli parola yönetimi
+- CORS koruması
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🎨 Özelleştirme
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Tema renkleri ve diğer stil değişkenleri `src/styles` dizinindeki CSS dosyalarında bulunmaktadır.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 📝 Yapılacaklar
 
-## Learn More
+- [ ] Çoklu dil desteği
+- [ ] Dark mode
+- [ ] Performans optimizasyonları
+- [ ] E-posta bildirimleri
+- [ ] Sosyal medya entegrasyonu
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🤝 Katkıda Bulunma
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Bu repoyu fork edin
+2. Yeni bir branch oluşturun (`git checkout -b feature/amazing-feature`)
+3. Değişikliklerinizi commit edin (`git commit -m 'Add some amazing feature'`)
+4. Branch'inizi push edin (`git push origin feature/amazing-feature`)
+5. Pull Request oluşturun
 
-### Code Splitting
+## 📄 Lisans
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Bu proje MIT lisansı altında lisanslanmıştır. Daha fazla bilgi için `LICENSE` dosyasına bakın.
