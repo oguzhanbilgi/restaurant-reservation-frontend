@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import About from './components/About';
@@ -13,6 +13,7 @@ import AdminPanel from './components/AdminPanel';
 import ForgotPassword from './components/ForgotPassword';
 import ReservationForm from './components/ReservationForm';
 import Footer from './components/Footer';
+import { jwtDecode } from 'jwt-decode';
 import './App.css';
 
 function App() {
@@ -27,6 +28,17 @@ function App() {
     setToken(null);
     localStorage.removeItem('token');
   };
+
+  // Kullanıcı rolünü bul
+  let role = null;
+  if (token) {
+    try {
+      const decoded = jwtDecode(token);
+      role = decoded.role;
+    } catch (e) {
+      role = null;
+    }
+  }
 
   return (
     <Router>
@@ -48,25 +60,25 @@ function App() {
             <Route 
               path="/reservations" 
               element={
-                token ? <Reservations token={token} /> : <Login onLogin={handleLogin} />
+                token ? <Reservations token={token} /> : <Navigate to="/login" />
               }
             />
             <Route 
               path="/reservation" 
               element={
-                token ? <ReservationForm token={token} /> : <Login onLogin={handleLogin} />
+                token ? <ReservationForm token={token} /> : <Navigate to="/login" />
               }
             />
             <Route 
               path="/create-reservation" 
               element={
-                token ? <ReservationForm token={token} /> : <Login onLogin={handleLogin} />
+                token ? <ReservationForm token={token} /> : <Navigate to="/login" />
               }
             />
             <Route 
               path="/admin" 
               element={
-                token ? <AdminPanel token={token} /> : <Login onLogin={handleLogin} />
+                token && role === 'ADMIN' ? <AdminPanel token={token} /> : <Navigate to="/" />
               }
             />
           </Routes>

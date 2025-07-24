@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import '../styles/ReservationForm.css';
 
 function Reservations({ token }) {
   const [reservations, setReservations] = useState([]);
-  const [form, setForm] = useState({ date: "", startTime: "", tableNumber: "" });
   const [message, setMessage] = useState("");
-
-  // Masa numaraları için array oluştur
-  const tables = Array.from({ length: 15 }, (_, i) => i + 1);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!token) return;
@@ -15,22 +13,9 @@ function Reservations({ token }) {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(res => setReservations(res.data))
-      .catch(err => setMessage("Rezervasyonlar alınamadı"));
+      .catch(err => setMessage("Rezervasyonlar alınamadı"))
+      .finally(() => setLoading(false));
   }, [token]);
-
-  const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    axios.post("http://localhost:8080/api/reservations", form, {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-      .then(res => {
-        setReservations([...reservations, res.data]);
-        setMessage("Rezervasyon eklendi!");
-      })
-      .catch(err => setMessage("Ekleme başarısız: " + (err.response?.data || "Bilinmeyen hata")));
-  };
 
   const handleDelete = id => {
     axios.delete(`http://localhost:8080/api/reservations/${id}`, {
@@ -44,48 +29,36 @@ function Reservations({ token }) {
   };
 
   return (
-    <div className="container" style={{ maxWidth: 600 }}>
-      <h2 className="mb-4">Rezervasyonlarım</h2>
-      <form onSubmit={handleSubmit} className="mb-4">
-        <div className="row g-2">
-          <div className="col">
-            <input name="date" type="date" className="form-control" onChange={handleChange} required />
-          </div>
-          <div className="col">
-            <input name="startTime" type="time" className="form-control" onChange={handleChange} required />
-          </div>
-          <div className="col">
-            <select
-              name="tableNumber"
-              className="form-control"
-              onChange={handleChange}
-              required
-              value={form.tableNumber}
-            >
-              <option value="">Masa seçin</option>
-              {tables.map(num => (
-                <option key={num} value={num}>{num}</option>
-              ))}
-            </select>
-          </div>
-          <div className="col">
-            <button className="btn btn-primary w-100" type="submit">Ekle</button>
-          </div>
+    <div className="reservation-container" style={{ maxWidth: 800, margin: '2rem auto' }}>
+      <div className="reservation-header">
+        <h1>Rezervasyonlarım</h1>
+        <div className="breadcrumb">
+          <a href="/">Anasayfa</a> / <span>Rezervasyonlarım</span>
         </div>
-      </form>
-      {message && <div className="alert alert-info">{message}</div>}
-      <ul className="list-group">
-        {reservations.map(r => (
-          <li key={r.id} className="list-group-item d-flex justify-content-between align-items-center">
-            <span>
-              {r.date} -
-              {r.timeSlot ? new Date(r.timeSlot.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ""} -
-              Masa: {r.tableNumber}
-            </span>
-            <button className="btn btn-danger btn-sm" onClick={() => handleDelete(r.id)}>Sil</button>
-          </li>
-        ))}
-      </ul>
+      </div>
+      {loading ? (
+        <div className="text-center mt-5">Yükleniyor...</div>
+      ) : reservations.length === 0 ? (
+        <div className="empty-message">
+          <img src="/images/empty-reservation.svg" alt="Boş" style={{width:120, opacity:0.7}}/>
+          <p>Henüz hiç rezervasyonunuz yok.</p>
+        </div>
+      ) : (
+        <div className="reservation-list">
+          {reservations.map(r => (
+            <div key={r.id} className="reservation-card">
+              <div className="reservation-info">
+                <div><b>Tarih:</b> {r.date}</div>
+                <div><b>Saat:</b> {r.timeSlot ? new Date(r.timeSlot.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "-"}</div>
+                <div><b>Masa:</b> {r.tableNumber}</div>
+                <div><b>Durum:</b> <span className={`badge badge-${r.status === 'CONFIRMED' ? 'success' : r.status === 'CANCELLED' ? 'danger' : 'warning'}`}>{r.status === 'CONFIRMED' ? 'Onaylandı' : r.status === 'CANCELLED' ? 'İptal' : 'Beklemede'}</span></div>
+              </div>
+              <button className="btn btn-danger btn-sm" onClick={() => handleDelete(r.id)}>Sil</button>
+            </div>
+          ))}
+        </div>
+      )}
+      {message && <div className="alert alert-info mt-3">{message}</div>}
     </div>
   );
 }

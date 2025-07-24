@@ -118,6 +118,59 @@ small {
     box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
 }
 
+.reservation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-top: 2rem;
+}
+
+.reservation-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(44,62,80,0.07);
+  padding: 1.2rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: box-shadow 0.2s;
+}
+.reservation-card:hover {
+  box-shadow: 0 4px 16px rgba(44,62,80,0.13);
+}
+.reservation-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.badge-success {
+  background: #38b000;
+  color: #fff;
+  padding: 0.2em 0.7em;
+  border-radius: 8px;
+  font-size: 0.95em;
+}
+.badge-danger {
+  background: #e63946;
+  color: #fff;
+  padding: 0.2em 0.7em;
+  border-radius: 8px;
+  font-size: 0.95em;
+}
+.badge-warning {
+  background: #ffb703;
+  color: #222;
+  padding: 0.2em 0.7em;
+  border-radius: 8px;
+  font-size: 0.95em;
+}
+.empty-message {
+  text-align: center;
+  margin: 3rem 0 2rem 0;
+  color: #888;
+  font-size: 1.2rem;
+}
+
 @media (max-width: 768px) {
     .form-row {
         flex-direction: column;

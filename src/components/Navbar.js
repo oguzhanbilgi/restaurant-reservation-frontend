@@ -5,7 +5,15 @@ import '../styles/Navbar.css';
 
 const Navbar = ({ token, onLogout }) => {
     const [isScrolled, setIsScrolled] = useState(false);
-    const isAdmin = token ? jwtDecode(token).role === 'ADMIN' : false;
+    let role = null;
+    if (token) {
+        try {
+            const decoded = jwtDecode(token);
+            role = decoded.role;
+        } catch (e) {
+            role = null;
+        }
+    }
 
     useEffect(() => {
         const handleScroll = () => {
@@ -23,7 +31,7 @@ const Navbar = ({ token, onLogout }) => {
     return (
         <nav className={`navbar navbar-expand-lg fixed-top ${isScrolled ? 'scrolled' : ''}`}>
             <div className="container">
-                <Link className="navbar-brand" to="/">Boğaz Restaurant</Link>
+                <Link className="navbar-brand big-logo" to="/">Boğaz Restaurant</Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -32,33 +40,48 @@ const Navbar = ({ token, onLogout }) => {
                         <li className="nav-item">
                             <Link className="nav-link" to="/">Ana Sayfa</Link>
                         </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/about">Hakkımızda</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/menu">Menü</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/gallery">Galeri</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/contact">İletişim</Link>
-                        </li>
+                        {(!role || role === 'USER') && (
+                            <>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/about">Hakkımızda</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/menu">Menü</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/gallery">Galeri</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/contact">İletişim</Link>
+                                </li>
+                            </>
+                        )}
                     </ul>
                     <ul className="navbar-nav">
                         {token ? (
                             <>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/reservations">Rezervasyonlarım</Link>
-                                </li>
-                                {isAdmin && (
-                                    <li className="nav-item">
-                                        <Link className="nav-link" to="/admin">Admin Paneli</Link>
-                                    </li>
+                                {role === 'ADMIN' ? (
+                                    <>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/admin">Admin Paneli</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/" onClick={onLogout}>Çıkış</Link>
+                                        </li>
+                                    </>
+                                ) : (
+                                    <>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/reservations">Rezervasyonlarım</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/profile">Profil</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/" onClick={onLogout}>Çıkış</Link>
+                                        </li>
+                                    </>
                                 )}
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/" onClick={onLogout}>Çıkış</Link>
-                                </li>
                             </>
                         ) : (
                             <>

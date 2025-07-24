@@ -8,6 +8,7 @@ const Login = ({ onLogin }) => {
         password: ''
     });
     const [error, setError] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -15,14 +16,15 @@ const Login = ({ onLogin }) => {
             ...formData,
             [e.target.name]: e.target.value
         });
+        setError('');
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
+        setIsLoading(true);
 
         try {
-            // API çağrısı burada yapılacak
             const response = await fetch('http://localhost:8080/api/auth/login', {
                 method: 'POST',
                 headers: {
@@ -32,14 +34,36 @@ const Login = ({ onLogin }) => {
             });
 
             if (!response.ok) {
-                throw new Error('Giriş başarısız. Lütfen bilgilerinizi kontrol edin.');
+                const errorData = await response.text();
+                let errorMessage;
+                try {
+                    const errorJson = JSON.parse(errorData);
+                    errorMessage = errorJson.error || 'Giriş başarısız';
+                } catch (e) {
+                    errorMessage = 'Giriş başarısız. Lütfen bilgilerinizi kontrol edin.';
+                }
+                throw new Error(errorMessage);
             }
 
             const data = await response.json();
+            
+            // Token'ı ve kullanıcı bilgilerini kaydet
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
+            
             onLogin(data.token);
-            navigate('/');
+
+            // Kullanıcı rolüne göre yönlendirme
+            if (data.user && data.user.role === 'ADMIN') {
+                navigate('/admin');
+            } else {
+                navigate('/reservations');
+            }
         } catch (err) {
-            setError(err.message);
+            console.error('Login error:', err);
+            setError(err.message || 'Giriş yapılırken bir hata oluştu.');
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -62,6 +86,7 @@ const Login = ({ onLogin }) => {
                             value={formData.email}
                             onChange={handleChange}
                             required
+                            disabled={isLoading}
                         />
                     </div>
 
@@ -75,13 +100,14 @@ const Login = ({ onLogin }) => {
                             value={formData.password}
                             onChange={handleChange}
                             required
+                            disabled={isLoading}
                         />
                     </div>
 
                     {error && <div className="error-message">{error}</div>}
 
-                    <button type="submit" className="auth-btn">
-                        Giriş Yap
+                    <button type="submit" className="auth-btn" disabled={isLoading}>
+                        {isLoading ? 'Giriş yapılıyor...' : 'Giriş Yap'}
                     </button>
 
                     <div className="auth-links">
@@ -94,17 +120,6 @@ const Login = ({ onLogin }) => {
 
                     <div className="auth-links">
                         Hesabınız yok mu? <Link to="/register">Kayıt Olun</Link>
-                    </div>
-
-                    <div className="social-login">
-                        <button type="button" className="social-btn">
-                            <i className="fab fa-google"></i>
-                            Google
-                        </button>
-                        <button type="button" className="social-btn">
-                            <i className="fab fa-facebook-f"></i>
-                            Facebook
-                        </button>
                     </div>
                 </form>
             </div>

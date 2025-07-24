@@ -5,10 +5,8 @@
 /* Hero Section */
 .hero {
     height: 100vh;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/bosphorus.jpg');
+    background: url('https://images.unsplash.com/photo-1578474846511-04ba529f0b88?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80') no-repeat center center;
     background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
     position: relative;
     display: flex;
     align-items: center;
@@ -30,44 +28,36 @@
 .hero-content {
     position: relative;
     z-index: 2;
-    max-width: 800px;
-    padding: 0 20px;
+    padding: 2rem;
 }
 
 .hero-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 4rem;
-    margin-bottom: 1.5rem;
-    animation: fadeInDown 1s ease;
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 .hero-subtitle {
-    font-family: 'Open Sans', sans-serif;
     font-size: 1.5rem;
     margin-bottom: 2rem;
-    animation: fadeInUp 1s ease 0.5s;
-    animation-fill-mode: both;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
 .btn-reservation {
-    background-color: #ffc107;
-    color: #000;
+    display: inline-block;
     padding: 1rem 2rem;
-    font-size: 1.2rem;
-    border-radius: 50px;
+    background: #e74c3c;
+    color: white;
     text-decoration: none;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    animation: fadeInUp 1s ease 1s;
-    animation-fill-mode: both;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: background 0.3s ease;
 }
 
 .btn-reservation:hover {
-    background-color: #ffca2c;
-    transform: translateY(-3px);
-    box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+    background: #c0392b;
+    color: white;
 }
 
 .btn-reservation i {
@@ -125,18 +115,43 @@
     background-color: #f8f9fa;
 }
 
+.features-grid {
+    padding: 5rem 0;
+    background: #f8f9fa;
+}
+
 .feature-card {
-    text-align: center;
-    padding: 40px 20px;
-    background: #fff;
+    background: white;
     border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    height: 100%;
 }
 
 .feature-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+.feature-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.feature-content {
+    padding: 1.5rem;
+}
+
+.feature-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.feature-content p {
+    color: #666;
+    margin-bottom: 0;
 }
 
 .feature-card i {
@@ -239,24 +254,23 @@
 
 /* Reservation CTA Section */
 .reservation-cta {
-    padding: 100px 0;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://source.unsplash.com/random/1920x1080/?restaurant,night');
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80') no-repeat center center;
     background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
     color: white;
+    padding: 5rem 0;
     text-align: center;
 }
 
 .cta-content {
-    max-width: 700px;
+    max-width: 800px;
     margin: 0 auto;
+    padding: 0 1rem;
 }
 
 .cta-content h2 {
-    font-family: 'Playfair Display', serif;
     font-size: 2.5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .cta-content p {
@@ -266,22 +280,24 @@
 }
 
 .btn-make-reservation {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background-color: #ffc107;
-    color: #000;
+    display: inline-block;
     padding: 1rem 2rem;
-    border-radius: 50px;
+    background: #e74c3c;
+    color: white;
     text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
+    border-radius: 5px;
+    font-weight: 500;
+    margin-top: 2rem;
+    transition: background 0.3s ease;
 }
 
 .btn-make-reservation:hover {
-    background-color: #ffca2c;
-    transform: translateY(-3px);
-    box-shadow: 0 5px 20px rgba(255, 193, 7, 0.3);
+    background: #c0392b;
+    color: white;
+}
+
+.btn-make-reservation i {
+    margin-left: 0.5rem;
 }
 
 /* Animations */
@@ -318,9 +334,13 @@
     .hero-title {
         font-size: 2.5rem;
     }
-
+    
     .hero-subtitle {
         font-size: 1.2rem;
+    }
+    
+    .feature-image {
+        height: 200px;
     }
 
     .btn-reservation {
